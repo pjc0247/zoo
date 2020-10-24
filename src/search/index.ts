@@ -1,10 +1,3 @@
-function searchable(indexName: string) {
-  return function(cls: any) {
-    console.log(cls);
-  };
-}
+import algoliasearch from 'algoliasearch';
 
-@searchable('asdf')
-class Boo {
-
-}
+export const algolia = algoliasearch('', '');

@@ -73,6 +73,7 @@
       "api/*": ["api/*"],
       "controller/*": ["controller/*"],
       "model/*": ["model/*"],
+      "search/*": ["search/*"],
       "thirdparty/*": ["thirdparty/*"],
     }
   }

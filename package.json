@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "algoliasearch": "^4.5.1",
     "express": "^4.17.1",
     "firebase-admin": "^9.3.0",
     "mongoose": "^5.10.10",
