@@ -12,14 +12,7 @@ export const schedule = (time: string) => {
     }
 
     nodeSchedule.scheduleJob(time, () => {
-      inst.execute();
+      inst.internal_execute();
     });
   };
-}
-
-@schedule('0/1 * * * * *')
-class boo extends Task {
-  execute() {
-    console.log('1');
-  }
 }
