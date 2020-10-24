@@ -72,7 +72,8 @@
       "util/*": ["util/*"],
       "api/*": ["api/*"],
       "controller/*": ["controller/*"],
-      "model/*": ["model/*"]
+      "model/*": ["model/*"],
+      "thirdparty/*": ["thirdparty/*"],
     }
   }
 }
