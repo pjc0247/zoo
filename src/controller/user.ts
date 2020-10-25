@@ -5,17 +5,8 @@ import { User, userSchema, IdpType, IUser } from 'model/user';
 import Push from 'thirdparty/push';
 
 class UserController extends BaseController<IUser> {
+  static model = User;
 
-  static async get(id: string) {
-    const user = await User.findById(id);
-    if (!user) return null;
-    return new UserController(user);
-  }
-  static async find(email: string) {
-    const doc = await User.findOne({ email });
-    if (!doc) return null;
-    return new UserController(doc);
-  }
   static async createWithEmail(email: string, password: string) {
     const user = await User.create({
       idp: IdpType.Email,
