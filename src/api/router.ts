@@ -25,7 +25,16 @@ class Router {
   }
 
   get<TParam>(path: string, handler: RequestHandler<TParam>) {
-    this.router.get(path, )
+    this.router.get(path, (req, res, handler) => this.wrapHandler(req, res, handler));
+  }
+  post<TParam>(path: string, handler: RequestHandler<TParam>) {
+    this.router.post(path, (req, res, handler) => this.wrapHandler(req, res, handler));
+  }
+  delete<TParam>(path: string, handler: RequestHandler<TParam>) {
+    this.router.delete(path, (req, res, handler) => this.wrapHandler(req, res, handler));
+  }
+  patch<TParam>(path: string, handler: RequestHandler<TParam>) {
+    this.router.patch(path, (req, res, handler) => this.wrapHandler(req, res, handler));
   }
 
   private async wrapHandler<TParam>(req: ExpressRequest, res: ExpressResponse, handler: RequestHandler<TParam>) {
