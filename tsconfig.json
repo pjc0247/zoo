@@ -75,6 +75,10 @@
       "model/*": ["model/*"],
       "search/*": ["search/*"],
       "thirdparty/*": ["thirdparty/*"],
-    }
+    },
+
+    "plugins": [
+      { "transform": "ts-transformer-keys/transformer" }
+    ]
   }
 }

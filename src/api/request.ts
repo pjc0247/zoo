@@ -5,15 +5,16 @@ import {
 
 import UserController from 'controller/user';
 
-export interface Request<TParams> extends ExpressRequest {
+export class Request<TParams> {
   body: TParams;
-
   user: UserController;
+
+  /* raw express request */
+  raw: ExpressRequest;
 };
-export interface EmptyRequest extends Request<{}> {
+export class EmptyRequest extends Request<{}> {
 
 };
-
 export interface Response extends ExpressResponse {
 
 };
