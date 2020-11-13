@@ -1,7 +1,13 @@
 :penguin: zoo :penguin:
 ====
+Batteries-included mobile app server framework.
 
-
+Features
+----
+* Async support
+* Push Notification
+* Built-in Social Logins
+* Production-Ready text searching, powered by [algolia](https://www.algolia.com/).
 
 __from__
 ```ts
