@@ -36,7 +36,7 @@ class UserController extends BaseController<IUser> {
     Push.send(title, body, this.doc.pushToken);
   }
 
-  toExportable() {
+  async toExportable() {
     return {
       id: this.id,
 

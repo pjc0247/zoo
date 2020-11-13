@@ -16,9 +16,11 @@ class BaseController<TDoc extends Document> {
     return this.doc?.id;
   }
 
+  // Create a controller instance from given mongoose doc.
   protected from_doc(doc: any) {
     return new (<any>this.constructor)(doc);
   }
+  // Create multiple controllers instance from given mongoose docs.
   protected from_docs(docs: any[]) {
     return docs.map(x => this.from_doc(x));
   }
@@ -56,7 +58,7 @@ class BaseController<TDoc extends Document> {
     });
   }
 
-  toExportable() {
+  async toExportable() {
     return {
       id: this.id,
     };

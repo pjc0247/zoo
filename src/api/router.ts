@@ -4,11 +4,12 @@ import {
   Response as ExpressResponse,
 } from 'express';
 import passport from 'passport';
+import env from 'env';
 import 'reflect-metadata';
-import { keys } from 'ts-transformer-keys';
 
 import specBuilder, { ResourceSpec } from './spec/builder';
 import { Request } from './request';
+import { DevelopmentStage } from 'env/stage';
 
 type RequestHandler<TParam> = (req: Request<TParam>) => void;
 
@@ -39,12 +40,6 @@ class Router {
     this.router.get(path, (req, res, handler) => this.wrapHandler(req, res, handler));
   }
   post<TParam>(type: TParam, path: string, handler: RequestHandler<TParam>) {
-    const b = new (<any>type)();
-    console.log(Object.getOwnPropertyNames(b));
-    console.log(Reflect.getMetadataKeys(b));
-    console.log(Reflect.getMetadata('design:type', b, 'foo'));
-    console.log(keys(b));
-
     this.builder.addApi(path, 'POST', {});
     this.router.post(path, (req, res, handler) => this.wrapHandler(req, res, handler));
   }
@@ -66,8 +61,13 @@ class Router {
       const response = await handler(null);
       res.send(response);
     } catch (e) {
+      // TODO: dev일때는 익셉션 스트링 다보내기
+      if (env.stage === DevelopmentStage.Development)
+        console.error(e);
+
+      res.status(e.code || 500);
       res.send({
-        exception: e.toString(),
+        message: e.toString(),
       });
     }
   }
