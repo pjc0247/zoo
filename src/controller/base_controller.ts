@@ -3,20 +3,25 @@ import { Document, Model } from 'mongoose';
 class BaseController<TDoc extends Document> {
   protected doc: TDoc;
 
-  static model: Model<any>;
+  static model: any;
 
   constructor(doc: Document) {
     this.doc = doc as TDoc;
   }
 
   get model() {
-    return ((<any>this).constructor.type);
+    return ((<any>this).constructor.model);
   }
   get id() {
-    return this.doc.id;
+    return this.doc?.id;
   }
 
-  static async get(id: string) {
+  async create(object: Partial<TDoc>) {
+    console.log(this.model);
+    return new (<any>this.constructor)(await this.model.create(object));
+  }
+
+  async get(id: string) {
     const doc = await this.model.findById(id);
     if (!doc) return null;
     return new (<any>this.constructor)(doc);

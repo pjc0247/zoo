@@ -1,7 +1,7 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch';
-import { Model } from 'mongoose';
 import { Document } from 'mongoose';
 
+import { algolia } from 'search';
 import BaseController from './base_controller';
 
 class SearchableController<TDoc extends Document>
@@ -17,12 +17,20 @@ class SearchableController<TDoc extends Document>
       throw new Error(`Index not found. Did you add '@searchable()' to 'SearchableController'?`);
   }
 
+  async create(object: Partial<TDoc>) {
+    const obj = await super.create(object);
+    await this.index.saveObject({
+      objectID: obj.id,
+      ...object,
+    });
+  }
+
   async search<T>(query: string) {
     const {
       hits,
     } = await this.index.search(query);
 
-    return hits.map(x => new ((<any>this).constructor.get(x)));
+    return await Promise.all(hits.map(x => this.get(x.objectID)));
   }
 }
 export default SearchableController;
