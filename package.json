@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "algoliasearch": "^4.5.1",
+    "deep-await": "^1.0.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.3.0",
     "in-app-purchase": "^1.11.4",

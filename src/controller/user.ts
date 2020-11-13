@@ -31,6 +31,11 @@ class UserController extends BaseController<IUser> {
     return false;
   }
 
+  async setPushToken(token: string) {
+    await this.update({
+      pushToken: token,
+    });
+  }
   sendPush(title: string, body: string) {
     if (!this.doc.pushToken) return;
     Push.send(title, body, this.doc.pushToken);

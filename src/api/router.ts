@@ -1,3 +1,4 @@
+import deep_await from 'deep-await';
 import {
   Router as ExpressRouter,
   Request as ExpressRequest,
@@ -59,7 +60,7 @@ class Router {
   private async wrapHandler<TParam>(req: ExpressRequest, res: ExpressResponse, handler: RequestHandler<TParam>) {
     try {
       const response = await handler(null);
-      res.send(response);
+      res.send(await deep_await(response) || {});
     } catch (e) {
       // TODO: dev일때는 익셉션 스트링 다보내기
       if (env.stage === DevelopmentStage.Development)
