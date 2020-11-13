@@ -16,36 +16,42 @@ class BaseController<TDoc extends Document> {
     return this.doc?.id;
   }
 
+  protected from_doc(doc: any) {
+    return new (<any>this.constructor)(doc);
+  }
+  protected from_docs(docs: any[]) {
+    return docs.map(x => this.from_doc(x));
+  }
+
   async create(object: Partial<TDoc>) {
-    console.log(this.model);
-    return new (<any>this.constructor)(await this.model.create(object));
+    return this.from_doc(await this.model.create(object));
   }
 
   async get(id: string) {
     const doc = await this.model.findById(id);
     if (!doc) return null;
-    return new (<any>this.constructor)(doc);
+    return this.from_doc(doc);
   }
-  static async find(condition: any) {
+  async find(condition: any) {
     const doc = await this.model.findOne(condition);
     if (!doc) return null;
-    return new (<any>this.constructor)(doc);
+    return this.from_doc(doc);
   }
-  static async findMany(condition: any, limit: number) {
+  async findMany(condition: any, limit: number) {
     const docs = await this.model
       .find(condition)
       .limit(limit)
       .exec();
-    return docs.map(x => new (<any>this.constructor)(x));
+    return this.from_docs(docs);
   }
 
-  static batchDestroy(ids: string[]) {
+  async batchDestroy(ids: string[]) {
   }
   async destroy() {
-    await this.doc.deleteOne();
+    return await this.doc.deleteOne();
   }
-  async update(props) {
-    await this.doc.updateOne({
+  async update(props: Partial<TDoc>) {
+    return await this.doc.updateOne({
       ...props,
     });
   }

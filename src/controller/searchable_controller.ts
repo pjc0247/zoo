@@ -24,11 +24,27 @@ class SearchableController<TDoc extends Document>
       ...object,
     });
   }
+  async destroy() {
+    const ret = await super.destroy();
+    await this.index.deleteObject(this.id);
+    return ret;
+  }
+  async update(props: Partial<TDoc>) {
+    const ret = await super.update(props);
+    this.index.partialUpdateObject({
+      objectID: this.doc.id,
+      ...props,
+    });
+    return ret;
+  }
 
-  async search<T>(query: string) {
+  async search<T>(query: string, offset: number = 0, limit: number = 20) {
     const {
       hits,
-    } = await this.index.search(query);
+    } = await this.index.search(query, {
+      offset,
+      length: limit,
+    });
 
     return await Promise.all(hits.map(x => this.get(x.objectID)));
   }
