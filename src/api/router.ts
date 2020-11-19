@@ -32,13 +32,17 @@ class Router {
       this.router.use(passport.authenticate('jwt', { session: false }));
   }
 
+  get expressRouter() {
+    return this.router;
+  }
+
   activator<T>(type: { new(): T ;} ): T {
     return new type();
   }
 
   get<TParam>(path: string, handler: RequestHandler<TParam>) {
     this.builder.addApi(path, 'GET', {});
-    this.router.get(path, (req, res, handler) => this.wrapHandler(req, res, handler));
+    this.router.get(path, (req, res, _handler) => this.wrapHandler(req, res, handler));
   }
   post<TParam>(type: TParam, path: string, handler: RequestHandler<TParam>) {
     this.builder.addApi(path, 'POST', {});
@@ -59,6 +63,7 @@ class Router {
 
   private async wrapHandler<TParam>(req: ExpressRequest, res: ExpressResponse, handler: RequestHandler<TParam>) {
     try {
+      console.log(handler);
       const response = await handler(null);
       res.send(await deep_await(response) || {});
     } catch (e) {

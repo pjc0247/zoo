@@ -9,6 +9,9 @@ import '../src/model';
 import { SearchableController } from '../src/controller';
 import { algolia } from '../src/search';
 import { searchable } from '../src/search/decorator';
+import { api } from '../src/api/';
+import { get } from '../src/api/';
+import { applyRouters } from 'api/express';
 
 interface IPost extends Document {
   title: string;
@@ -26,6 +29,7 @@ class PostController extends SearchableController<IPost> {
   static model = Post;
 }
 
+/*
 const post = new PostController(null, algolia.initIndex('test'));
 post.create({
   title: 'asdf',
@@ -33,9 +37,8 @@ post.create({
 });
 
 post.search('asd').then(x => console.log(x));
+*/
 
-
-/*
 const router = new Router('user');
 
 router.get('/', (req) => {
@@ -51,5 +54,22 @@ router.post(GetRequestBody, '/foo', (req) => {
   return 'hello';
 });
 
-console.log(genspec());
-*/
+@api('/user')
+class User {
+  @get('/')
+  async getUser() {
+    return "hello";
+  }
+}
+
+
+// for test
+const express = require('express');
+const app = express();
+const port = 3000
+
+applyRouters(app);
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
