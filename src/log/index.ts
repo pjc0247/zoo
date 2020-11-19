@@ -7,13 +7,17 @@ if (env.logDirectory) {
   fs.mkdirSync(env.logDirectory, { recursive: true });
 }
 
-const getLogPath = (reqId: string) => {
-  return path.join(env.logDirectory, `${reqId}.log`);
+const ensureLogDir = (reqId: string, userId: string) => {
+  fs.mkdirSync(path.join(env.logDirectory, userId || '_'));
+};
+const getLogPath = (reqId: string, userId: string) => {
+  return path.join(env.logDirectory, userId || '_', `${reqId}.log`);
 };
 export const logRequest = (reqId: string, userId: string, req: any) => {
   if (!env.logDirectory) return;
 
-  fs.writeFile(getLogPath(reqId), JSON.stringify({
+  ensureLogDir(reqId, userId);
+  fs.writeFile(getLogPath(reqId, userId), JSON.stringify({
     userId,
     request: {
       ...pick(req, [
@@ -22,19 +26,18 @@ export const logRequest = (reqId: string, userId: string, req: any) => {
         'query',
       ]),
     },
-  }), () => {
+  }, null, 2) + '\r\n\r\n', () => {
     // no-op
   });
 };
 export const logResponse = (reqId: string, userId: string, res: any) => {
   if (!env.logDirectory) return;
 
-  fs.appendFile(getLogPath(reqId), JSON.stringify({
+  ensureLogDir(reqId, userId);
+  fs.appendFile(getLogPath(reqId, userId), JSON.stringify({
     userId,
-    response: {
-      ...res,
-    },
-  }), () => {
+    response: res,
+  }, null, 2), () => {
     // no-op
   });
 };

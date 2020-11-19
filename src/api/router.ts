@@ -6,11 +6,13 @@ import {
 } from 'express';
 import passport from 'passport';
 import env from 'env';
+import { v4 as uuidv4 } from 'uuid';
 import 'reflect-metadata';
 
 import specBuilder, { ResourceSpec } from './spec/builder';
 import { Request } from './request';
 import { DevelopmentStage } from 'env/stage';
+import { logRequest, logResponse } from 'log';
 
 type RequestHandler<TParam> = (req: Request<TParam>) => void;
 
@@ -63,9 +65,14 @@ class Router {
 
   private async wrapHandler<TParam>(req: ExpressRequest, res: ExpressResponse, handler: RequestHandler<TParam>) {
     try {
-      console.log(handler);
-      const response = await handler(null);
-      res.send(await deep_await(response) || {});
+      const reqId = uuidv4();
+      const userId = (<any>req.user)?.id;
+
+      logRequest(reqId, userId, req);
+      const response = await deep_await(await handler(null)) || {};
+      res.header('X-REQ-ID', reqId);
+      res.send(response);
+      logResponse(reqId, userId, response);
     } catch (e) {
       // TODO: dev일때는 익셉션 스트링 다보내기
       if (env.stage === DevelopmentStage.Development)

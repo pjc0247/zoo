@@ -1,6 +1,6 @@
 import { Document, Model } from 'mongoose';
 
-class BaseController<TDoc extends Document> {
+export class BaseController<TDoc extends Document> {
   protected doc: TDoc;
 
   static model: any;
@@ -64,4 +64,3 @@ class BaseController<TDoc extends Document> {
     };
   }
 }
-export default BaseController;

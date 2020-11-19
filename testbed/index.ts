@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config(); //TODO
+
 import { Schema, model, Document } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 

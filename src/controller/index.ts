@@ -1,2 +1,2 @@
-export { default as SearchableController } from './searchable_controller';
-export { default as BaseController } from './base_controller';
+export * from './searchable_controller';
+export * from './base_controller';

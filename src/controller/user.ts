@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-import BaseController from './base_controller';
+import { BaseController } from './base_controller';
 import { User, userSchema, IdpType, IUser } from 'model/user';
 import Push from 'thirdparty/push';
 
@@ -24,6 +24,10 @@ class UserController extends BaseController<IUser> {
     return new UserController(user);
   }
 
+  get id() {
+    return this.doc.id;
+  }
+
   verifyPassword(password: string) {
     // FIXME
     if (password === this.doc.password)
@@ -37,8 +41,9 @@ class UserController extends BaseController<IUser> {
     });
   }
   sendPush(title: string, body: string) {
-    if (!this.doc.pushToken) return;
+    if (!this.doc.pushToken) return false;
     Push.send(title, body, this.doc.pushToken);
+    return true;
   }
 
   async toExportable() {

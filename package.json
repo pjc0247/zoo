@@ -11,6 +11,7 @@
   "dependencies": {
     "algoliasearch": "^4.5.1",
     "deep-await": "^1.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.3.0",
     "in-app-purchase": "^1.11.4",
@@ -23,7 +24,8 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
-    "ts-transformer-keys": "^0.4.2"
+    "ts-transformer-keys": "^0.4.2",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",

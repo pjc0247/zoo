@@ -1,10 +1,9 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { Document } from 'mongoose';
 
-import { algolia } from 'search';
-import BaseController from './base_controller';
+import { BaseController } from './base_controller';
 
-class SearchableController<TDoc extends Document>
+export class SearchableController<TDoc extends Document>
   extends BaseController<TDoc> {
 
   constructor(
@@ -49,4 +48,3 @@ class SearchableController<TDoc extends Document>
     return await Promise.all(hits.map(x => this.get(x.objectID)));
   }
 }
-export default SearchableController;
