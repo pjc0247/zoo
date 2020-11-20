@@ -8,7 +8,9 @@ const getResource = (cls: any) => {
 
 export const api = (resource: string) => {
   return (ctor: any, ...args: any) => {
-    resources[ctor.name] = new (<any>ctor)();
+    const injections = Reflect.getMetadata('design:paramtypes', ctor)
+      .map(x => new (<any>x))
+    resources[ctor.name] = new (<any>ctor)(injections);
   };
 };
 

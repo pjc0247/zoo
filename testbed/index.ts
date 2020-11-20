@@ -9,7 +9,7 @@ import Router from '../src/api/router';
 import genspec from '../src/api/spec/gen';
 import '../src/model';
 
-import { SearchableController } from '../src/controller';
+import { BaseController, SearchableController } from '../src/controller';
 import { algolia } from '../src/search';
 import { searchable } from '../src/search/decorator';
 import { api } from '../src/api/';
@@ -29,6 +29,9 @@ export const Post = model('Post', postSchema);
 
 @searchable('post')
 class PostController extends SearchableController<IPost> {
+  static model = Post;
+}
+class Post2Controller extends BaseController<IPost> {
   static model = Post;
 }
 
@@ -59,6 +62,10 @@ router.post(GetRequestBody, '/foo', (req) => {
 
 @api('/user')
 class User {
+  constructor(private post: PostController) {
+    console.log(post);
+  }
+
   @get('/')
   async getUser() {
     return "hello";
