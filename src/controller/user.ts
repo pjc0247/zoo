@@ -1,17 +1,28 @@
 import { Document } from 'mongoose';
+import bcrypt from 'bcrypt';
+import env from 'env';
 
 import { BaseController } from './base_controller';
 import { User, userSchema, IdpType, IUser } from 'model/user';
 import Push from 'thirdparty/push';
+import { DevelopmentStage } from 'env/stage';
 
 class UserController extends BaseController<IUser> {
   static model = User;
 
   static async createWithEmail(email: string, password: string) {
+    let encryptedOrRawPassword = '';
+    if (env.stage === DevelopmentStage.Development
+      && env.useRawPasswordOnDevelopment) {
+      encryptedOrRawPassword = password;
+    } else {
+      encryptedOrRawPassword = await bcrypt.hash(password, 10);
+    }
+    
     const user = await User.create({
       idp: IdpType.Email,
       email,
-      password,
+      password: encryptedOrRawPassword,
     });
     return new UserController(user);
   }
@@ -28,9 +39,15 @@ class UserController extends BaseController<IUser> {
     return this.doc.id;
   }
 
-  verifyPassword(password: string) {
-    // FIXME
-    if (password === this.doc.password)
+  async verifyPassword(password: string) {
+    if (env.stage === DevelopmentStage.Development
+      && env.useRawPasswordOnDevelopment) {
+
+      if (password === this.doc.password)
+        return true;
+    }
+
+    if (await bcrypt.compare(password, this.doc.password))
       return true;
     return false;
   }
