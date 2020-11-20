@@ -9,6 +9,37 @@ Features
 * Built-in Social Logins
 * Production-Ready text searching, powered by [algolia](https://www.algolia.com/).
 
+
+aaaa
+----
+```js
+@api('/user')
+class UserApi {
+  constructor(private user: UserController) {
+  }
+  
+  @get('/me')
+  async getMe(req: EmptyRequest) {
+    return {
+      user: this.user.get(req.user.id),
+    };
+  }
+  
+  
+  @post('/')
+  async createUser(req: CreateUserRequest) {
+    return {
+      user: this.user.create({
+        ...req.body,
+      });
+    };
+  }
+}
+```
+
+bbbb
+----
+
 __from__
 ```ts
 class GetPostRequest extends Request<{
