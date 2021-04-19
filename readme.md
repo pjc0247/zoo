@@ -63,6 +63,8 @@ class Post {
   title: string;
   @searchable()
   content: string;
+  
+  someNonSeachableData: string;
 }
 
 @searchable('post')
