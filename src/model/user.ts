@@ -1,5 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
+import { ZooSchema } from './base';
+
 export enum IdpType {
   Email = 'email',
   Facebook = 'facebook',
@@ -17,7 +19,7 @@ export interface IUser extends Document {
   pushToken: string;
 };
 
-export const userSchema = new Schema({
+export const userSchema = ZooSchema({
   name: String,
 
   /* auth related properties */

@@ -35,10 +35,6 @@ class UserController extends BaseController<IUser> {
     return new UserController(user);
   }
 
-  get id() {
-    return this.doc.id;
-  }
-
   async verifyPassword(password: string) {
     if (env.stage === DevelopmentStage.Development
       && env.useRawPasswordOnDevelopment) {
