@@ -70,12 +70,13 @@ class Router {
       const userId = (<any>req.user)?.id;
 
       logRequest(reqId, userId, req);
-      let response = await handler(null);
+      let next = () => handler(null);
       const middlewares = getMiddlewares();
       for (const middleware of middlewares) {
-        response = await middleware.execute(req as any, response);
+        let _n = next;
+        next = () => middleware.execute(req as any, _n);
       }
-      response = await deep_await(response) || {};
+      const response = await deep_await(next()) || {};
       res.header('X-REQ-ID', reqId);
       res.send(response);
       logResponse(reqId, userId, response);

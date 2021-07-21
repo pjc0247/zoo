@@ -62,9 +62,13 @@ router.post(GetRequestBody, '/foo', (req) => {
 
 @middleware()
 class Middleware {
-  execute(request: Request<any>, response: any) {
-    console.log(response);
-    return { a: response };
+  async execute(request: Request<any>, next: Function) {
+    try {
+    const ret = await next();
+    return { a: ret };
+    } catch(e) {
+      return 'err';
+    }
   }
 }
 
@@ -76,6 +80,7 @@ class User {
 
   @get('/')
   async getUser() {
+    throw new Error('a');
     return {
       a: 'hello'
     };
