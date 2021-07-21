@@ -34,7 +34,13 @@ export const get = (path: string) => {
   };
 };
 export const post = (path: string) => {
-
+  return (cls: any, method: any, desc: PropertyDescriptor) => {
+    const router = getOrCreateRouter(cls);
+    router.post(path, (res) => {
+      const resource = getResource(cls);
+      return resource[method](res);
+    });
+  };
 };
 export const patch = (path: string) => {
 

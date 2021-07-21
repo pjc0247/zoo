@@ -5,7 +5,6 @@ import { algolia } from './index';
 
 export const searchableField = () => {
   return (ctor: any, prop: string, descriptor: PropertyDescriptor) => {
-
   };
 };
 

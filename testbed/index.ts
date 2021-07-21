@@ -12,7 +12,7 @@ import '../src/model';
 import { BaseController, SearchableController } from '../src/controller';
 import { algolia } from '../src/search';
 import { searchable } from '../src/search/decorator';
-import { api, middleware } from '../src/api/';
+import { api, middleware, post } from '../src/api/';
 import { get } from '../src/api/';
 import { applyRouters } from 'api/express';
 import { RetriableTask } from 'task/retriable_task';
@@ -61,8 +61,6 @@ post.create({
 post.search('asd').then(x => console.log(x));
 */
 
-/*
-
 const router = new Router('user');
 
 router.get('/', (req) => {
@@ -73,10 +71,6 @@ class GetRequestBody {
   foo: string = 'a';
   bar: number;
 }
-router.post(GetRequestBody, '/foo', (req) => {
-
-  return 'hello';
-});
 
 @middleware()
 class Middleware {
@@ -103,6 +97,11 @@ class User {
       a: 'hello'
     };
   }
+
+  @post('/f')
+  async postF(req: Request<any>) {
+    console.log(req);
+  }
 };
 
 // for test
@@ -110,9 +109,9 @@ const express = require('express');
 const app = express();
 const port = 3000
 
+app.use(express.json());
 applyRouters(app);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-*/
