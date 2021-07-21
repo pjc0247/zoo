@@ -8,9 +8,15 @@ const waitFor = (time: number) => {
   });
 };
 
+export enum RetryIntervalType {
+  Linear = 'linear',
+  Exponential = 'exponential',
+};
+
 export class RetriableTask extends Task {
   protected maxRetry: number = 3;
   protected interval: number = 1000;
+  protected intervalType: RetryIntervalType = RetryIntervalType.Exponential;
 
   async beginTask() {
     for (let i=0; i < this.maxRetry; i++) {
@@ -18,8 +24,15 @@ export class RetriableTask extends Task {
         await this.execute();
         break;
       } catch(e) {
-        await waitFor(this.interval);
+        await waitFor(this.getNextDelay(i));
       }
     }
+  }
+
+  private getNextDelay(tryCount: number) {
+    if (this.intervalType === RetryIntervalType.Linear)
+      return this.interval;
+    else if (this.intervalType === RetryIntervalType.Exponential)
+      return Math.pow(2, tryCount) * this.interval;
   }
 }
