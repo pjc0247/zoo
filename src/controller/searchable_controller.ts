@@ -1,6 +1,7 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { Document } from 'mongoose';
 
+import { InlineTask } from 'task';
 import { BaseController } from './base_controller';
 
 export class SearchableController<TDoc extends Document>
@@ -18,22 +19,33 @@ export class SearchableController<TDoc extends Document>
 
   async create(object: Partial<TDoc>) {
     const obj = await super.create(object);
-    await this.index.saveObject({
-      objectID: obj.id,
-      ...object,
+
+    InlineTask.runRetriableTask(async () => {
+      await this.index.saveObject({
+        objectID: obj.id,
+        ...object,
+      });
     });
   }
   async destroy() {
     const ret = await super.destroy();
-    await this.index.deleteObject(this.id);
+
+    InlineTask.runRetriableTask(async () => {
+      await this.index.deleteObject(this.id);
+    });
+    
     return ret;
   }
   async update(props: Partial<TDoc>) {
     const ret = await super.update(props);
-    this.index.partialUpdateObject({
-      objectID: this.doc.id,
-      ...props,
+
+    InlineTask.runRetriableTask(async () => {
+      await this.index.partialUpdateObject({
+        objectID: this.doc.id,
+        ...props,
+      });
     });
+    
     return ret;
   }
 

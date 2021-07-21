@@ -1,7 +1,7 @@
 class Task {
   protected execute() {
   }
-  internal_execute() {
+  beginTask() {
     this.execute();
   }
 }

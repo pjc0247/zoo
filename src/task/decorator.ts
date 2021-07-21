@@ -12,7 +12,7 @@ export const schedule = (time: string) => {
     }
 
     nodeSchedule.scheduleJob(time, () => {
-      inst.internal_execute();
+      inst.beginTask();
     });
   };
 }

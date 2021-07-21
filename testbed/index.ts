@@ -15,6 +15,8 @@ import { searchable } from '../src/search/decorator';
 import { api, middleware } from '../src/api/';
 import { get } from '../src/api/';
 import { applyRouters } from 'api/express';
+import { RetriableTask } from 'task/retriable_task';
+import { InlineTask } from 'task';
 
 interface IPost extends Document {
   title: string;
@@ -35,6 +37,20 @@ class Post2Controller extends BaseController<IPost> {
   static model = Post;
 }
 
+class AA extends RetriableTask {
+  execute() {
+    console.log('AA');
+    throw new Error('1');
+  }
+}
+
+InlineTask.runRetriableTask(() => {
+  console.log('aa');
+  throw new Error('1');
+}, 10, 10);
+
+(new AA()).beginTask();
+
 /*
 const post = new PostController(null, algolia.initIndex('test'));
 post.create({
@@ -44,6 +60,8 @@ post.create({
 
 post.search('asd').then(x => console.log(x));
 */
+
+/*
 
 const router = new Router('user');
 
@@ -97,3 +115,4 @@ applyRouters(app);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+*/
