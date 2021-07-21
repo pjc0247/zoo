@@ -12,7 +12,7 @@ import '../src/model';
 import { BaseController, SearchableController } from '../src/controller';
 import { algolia } from '../src/search';
 import { searchable } from '../src/search/decorator';
-import { api } from '../src/api/';
+import { api, middleware } from '../src/api/';
 import { get } from '../src/api/';
 import { applyRouters } from 'api/express';
 
@@ -60,6 +60,14 @@ router.post(GetRequestBody, '/foo', (req) => {
   return 'hello';
 });
 
+@middleware()
+class Middleware {
+  execute(request: Request<any>, response: any) {
+    console.log(response);
+    return { a: response };
+  }
+}
+
 @api('/user')
 class User {
   constructor(private post: PostController) {
@@ -68,10 +76,11 @@ class User {
 
   @get('/')
   async getUser() {
-    return "hello";
+    return {
+      a: 'hello'
+    };
   }
-}
-
+};
 
 // for test
 const express = require('express');

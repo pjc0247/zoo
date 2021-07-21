@@ -9,10 +9,11 @@ import env from 'env';
 import { v4 as uuidv4 } from 'uuid';
 import 'reflect-metadata';
 
-import specBuilder, { ResourceSpec } from './spec/builder';
-import { Request } from './request';
 import { DevelopmentStage } from 'env/stage';
 import { logRequest, logResponse } from 'log';
+import specBuilder, { ResourceSpec } from './spec/builder';
+import { Request } from './request';
+import { getMiddlewares } from './decorator';
 
 type RequestHandler<TParam> = (req: Request<TParam>) => void;
 
@@ -69,7 +70,12 @@ class Router {
       const userId = (<any>req.user)?.id;
 
       logRequest(reqId, userId, req);
-      const response = await deep_await(await handler(null)) || {};
+      let response = await handler(null);
+      const middlewares = getMiddlewares();
+      for (const middleware of middlewares) {
+        response = await middleware.execute(req as any, response);
+      }
+      response = await deep_await(response) || {};
       res.header('X-REQ-ID', reqId);
       res.send(response);
       logResponse(reqId, userId, response);
