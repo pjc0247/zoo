@@ -10,7 +10,7 @@ Features
 * Production-Ready text searching, powered by [algolia](https://www.algolia.com/).
 
 
-aaaa
+Routing
 ----
 ```js
 @api('/user')
@@ -74,4 +74,12 @@ class PostController extends Controller {
 ```
 ```ts
 const posts = await PostController.search('query string');
+```
+
+Task
+----
+```ts
+InlineTask.runRetriableTask(() => {
+  await MAY_UNSTABLE_THIRDPARTY_API_CALL_HERE();
+}, MAX_RETRY, INTERVAL);
 ```
