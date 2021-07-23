@@ -78,6 +78,17 @@ const posts = await PostController.search('query string');
 
 Task
 ----
+__CronTask__
+```ts
+@schedule('every 1 hour')
+class CronTask extends Task {
+  execute() {
+    console.log('Hello Task!');
+  }
+}
+```
+
+__RetriableTask__
 ```ts
 InlineTask.runRetriableTask(() => {
   await MAY_UNSTABLE_THIRDPARTY_API_CALL_HERE();
