@@ -2,6 +2,11 @@
 ====
 Batteries-included mobile app server framework.
 
+할일
+-----
+* 푸시 발송에 대한 자동 알림 목록 생성 (알림 히스토리)
+* 
+
 Features
 ----
 * Async support
