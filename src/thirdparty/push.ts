@@ -2,7 +2,7 @@ import admin from 'firebase-admin';
 
 const messaging = admin.messaging();
 
-class Push {
+export class Push {
   static send(title: string, body: string, token: string) {
     messaging.send({
       notification: {
@@ -21,4 +21,3 @@ class Push {
     });
   }
 }
-export default Push;

@@ -1,6 +1,7 @@
-import UserController from 'controller/user';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+
+import UserController from 'controller/user';
 
 passport.use(new LocalStrategy(async (
   email: string,

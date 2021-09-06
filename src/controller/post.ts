@@ -1,11 +1,7 @@
 import { Document } from 'mongoose';
-import bcrypt from 'bcrypt';
 import env from 'env';
 
-import { User, userSchema, IdpType, IUser } from 'model/user';
 import { IPost, Post } from 'model/post';
-import Push from 'thirdparty/push';
-import { DevelopmentStage } from 'env/stage';
 import { SearchableController } from './searchable_controller';
 
 class PostController extends SearchableController<IPost> {
