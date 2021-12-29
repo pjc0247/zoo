@@ -1,2 +1,3 @@
-export * from './searchable_controller';
-export * from './base_controller';
+export * from './SearchableController';
+export * from './BaseController';
+export * from './useController';

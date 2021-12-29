@@ -5,7 +5,7 @@ import { User, userSchema, IdpType, IUser } from '../model/user';
 import Push from '../thirdparty/push';
 import { DevelopmentStage } from '../env/stage';
 import { DefaultPasswordEngine } from '../policy/password';
-import { BaseController } from './base_controller';
+import { BaseController } from './BaseController';
 
 class UserController extends BaseController<IUser> {
   static model = User;
@@ -19,7 +19,11 @@ class UserController extends BaseController<IUser> {
     });
     return new UserController(user);
   }
-  static async createWith3rdPartyIdp(idp: IdpType, idpUserId: string, email: string) {
+  static async createWith3rdPartyIdp(
+    idp: IdpType,
+    idpUserId: string,
+    email: string
+  ) {
     const user = await User.create({
       idp,
       idpUserId,
@@ -31,7 +35,7 @@ class UserController extends BaseController<IUser> {
   async verifyPassword(password: string) {
     return await UserController.passwordEngine.verifyPassword(
       password,
-      this.doc.password,
+      this.doc.password
     );
   }
 
@@ -57,5 +61,5 @@ class UserController extends BaseController<IUser> {
       email: this.doc.email,
     };
   }
-};
+}
 export default UserController;

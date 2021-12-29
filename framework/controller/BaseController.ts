@@ -10,7 +10,7 @@ export class BaseController<TDoc extends Document> {
   }
 
   get model() {
-    return ((<any>this).constructor.model);
+    return (<any>this).constructor.model;
   }
   get id() {
     return this.doc?.id;
@@ -22,7 +22,7 @@ export class BaseController<TDoc extends Document> {
   }
   // Create multiple controllers instance from given mongoose docs.
   protected fromDocs(docs: any[]) {
-    return docs.map(x => this.fromDoc(x));
+    return docs.map((x) => this.fromDoc(x));
   }
 
   async create(object: Partial<TDoc>) {
@@ -40,15 +40,11 @@ export class BaseController<TDoc extends Document> {
     return this.fromDoc(doc);
   }
   async findMany(condition: any, limit: number) {
-    const docs = await this.model
-      .find(condition)
-      .limit(limit)
-      .exec();
+    const docs = await this.model.find(condition).limit(limit).exec();
     return this.fromDocs(docs);
   }
 
-  async batchDestroy(ids: string[]) {
-  }
+  async batchDestroy(ids: string[]) {}
   async destroy() {
     return await this.doc.deleteOne();
   }
