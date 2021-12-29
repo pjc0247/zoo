@@ -52,6 +52,7 @@ class Router {
   }
   post<TParam>(path: string, handler: RequestHandler<TParam>) {
     this.builder.addApi(path, 'POST', {});
+    console.log('OPATH', path);
     this.router.post(path, (req, res) => this.wrapHandler(req, res, handler));
   }
   delete<TParam>(path: string, handler: RequestHandler<TParam>) {

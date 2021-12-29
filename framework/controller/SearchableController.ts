@@ -25,6 +25,8 @@ export class SearchableController<
         ...object,
       });
     });
+
+    return obj;
   }
   async destroy() {
     const ret = await super.destroy();

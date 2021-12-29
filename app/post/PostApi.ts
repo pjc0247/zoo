@@ -4,12 +4,17 @@ import { PostController } from './PostController';
 
 @api('/post')
 export class Post {
-  constructor(private post: PostController) {
-    console.log(post);
-  }
+  constructor(private post: PostController) {}
 
   @get('/')
-  async getUser() {
+  async getPosts() {
+    throw new Error('a');
+    return {
+      a: 'hello',
+    };
+  }
+  @get('/:id')
+  async getPost() {
     throw new Error('a');
     return {
       a: 'hello',
@@ -18,6 +23,9 @@ export class Post {
 
   @post('/')
   async create(req: Request<any>) {
-    console.log(req);
+    console.log(this.post);
+    const post = await this.post.create(req.body);
+    console.log('re', post);
+    return post;
   }
 }
