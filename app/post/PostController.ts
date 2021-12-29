@@ -8,6 +8,11 @@ import { IPost, Post } from './PostModel';
 export class PostController extends SearchableController<IPost> {
   static model = Post;
 
+  async getComments() {
+    const comment = useController(CommentController);
+    return await comment.findMany({ post: this.id }, 100);
+  }
+
   async createComment(data: Partial<IComment>) {
     const comment = useController(CommentController);
     return await comment.create({

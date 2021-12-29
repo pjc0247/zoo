@@ -38,12 +38,12 @@ export class BaseController<TDoc extends Document> {
     const docs = await this.model.where('_id').in(ids).find();
     return this.fromDocs(docs);
   }
-  async find(condition: any) {
+  async find(condition: any): Promise<this> {
     const doc = await this.model.findOne(condition);
     if (!doc) return null;
     return this.fromDoc(doc);
   }
-  async findMany(condition: any, limit: number) {
+  async findMany(condition: any, limit: number): Promise<this[]> {
     const docs = await this.model.find(condition).limit(limit).exec();
     return this.fromDocs(docs);
   }

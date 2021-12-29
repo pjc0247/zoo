@@ -29,6 +29,12 @@ export class Post {
     return post.toExportable();
   }
 
+  @get('/:id/comment')
+  async getComments(req: Request<any>) {
+    const post = await this.post.get(req.params.id);
+    return post.getComments();
+  }
+
   @post('/:id/comment')
   async createComment(req: Request<any>) {
     const post = await this.post.get(req.params.id);

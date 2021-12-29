@@ -96,6 +96,13 @@ class Router {
     }
     return next;
   }
+  private makeExportable(data: any | any[]) {
+    if (Array.isArray(data)) {
+      console.log(data.map((x) => x?.toExportable?.() || x));
+      return data.map((x) => x?.toExportable?.() || x);
+    }
+    return data?.toExportable?.() || data;
+  }
   private async wrapHandler<TParam>(
     req: ExpressRequest,
     res: ExpressResponse,
@@ -108,8 +115,9 @@ class Router {
 
       logRequest(reqId, userId, req);
       const task = this.resolveMiddlewares(request, handler);
-      const response = (await deep_await(task())) || {};
-      res.header('X-REQ-ID', reqId);
+      const response = this.makeExportable(await deep_await(task())) || {};
+
+      if (response) res.header('X-REQ-ID', reqId);
       res.send(response);
       logResponse(reqId, userId, response);
     } catch (e) {
