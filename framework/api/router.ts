@@ -5,13 +5,13 @@ import {
   Response as ExpressResponse,
 } from 'express';
 import passport from 'passport';
-import env from 'env';
+import env from '../env';
 import { v4 as uuidv4 } from 'uuid';
 import 'reflect-metadata';
 
-import UserController from 'controller/user';
-import { DevelopmentStage } from 'env/stage';
-import { logRequest, logResponse } from 'log';
+import UserController from '../controller/user';
+import { DevelopmentStage } from '../env/stage';
+import { logRequest, logResponse } from '../log';
 import specBuilder, { ResourceSpec } from './spec/builder';
 import { Request } from './request';
 import { getMiddlewares } from './decorator';

@@ -4,19 +4,19 @@ dotenv.config(); //TODO
 import { Schema, model, Document } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-import { Request } from '../src/api/request';
-import Router from '../src/api/router';
-import genspec from '../src/api/spec/gen';
-import '../src/model';
+import { Request } from '../api/request';
+import Router from '../api/router';
+import genspec from '../api/spec/gen';
+import '../model';
 
-import { BaseController, SearchableController } from '../src/controller';
-import { algolia } from '../src/search';
-import { searchable } from '../src/search/decorator';
-import { api, middleware, post } from '../src/api/';
-import { get } from '../src/api/';
-import { applyRouters } from 'api/express';
-import { RetriableTask } from 'task/retriable_task';
-import { InlineTask } from 'task';
+import { BaseController, SearchableController } from '../controller';
+import { algolia } from '../search';
+import { searchable } from '../search/decorator';
+import { api, middleware, post } from '../api';
+import { get } from '../api';
+import { applyRouters } from '../api/express';
+import { RetriableTask } from '../task/retriable_task';
+import { InlineTask } from '../task';
 
 interface IPost extends Document {
   title: string;

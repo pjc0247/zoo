@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import env from 'env';
+import env from '../env';
 import { pick } from 'lodash';
 
 if (env.logDirectory) {

@@ -66,17 +66,12 @@
     "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true,
 
-    "baseUrl": "src",
+    "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "util/*": ["util/*"],
-      "api/*": ["api/*"],
-      "controller/*": ["controller/*"],
-      "model/*": ["model/*"],
-      "search/*": ["search/*"],
-      "thirdparty/*": ["thirdparty/*"],
+      "@/app/*": ["./app/*"],
+      "@/framework/*": ["./framework/*"],
     },
-
     "plugins": [
       { "transform": "ts-transformer-keys/transformer" }
     ]

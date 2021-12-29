@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
-import env from 'env';
+import env from '../env';
 
-import { DevelopmentStage } from 'env/stage';
+import { DevelopmentStage } from '../env/stage';
 import { IPasswordEngine } from './password_engine';
 
 export class DefaultPasswordEngine implements IPasswordEngine {

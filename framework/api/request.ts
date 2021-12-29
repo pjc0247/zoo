@@ -3,7 +3,7 @@ import {
   Response as ExpressResponse,
 } from 'express';
 
-import UserController from 'controller/user';
+import UserController from '../controller/user';
 
 export class Request<TParams> {
   body: TParams;
