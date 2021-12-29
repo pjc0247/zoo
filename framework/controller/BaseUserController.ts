@@ -7,33 +7,29 @@ import { DevelopmentStage } from '../env/stage';
 import { DefaultPasswordEngine } from '../policy/password';
 import { BaseController } from './BaseController';
 
-class UserController extends BaseController<IUser> {
+class BaseUserController extends BaseController<IUser> {
   static model = User;
   static passwordEngine = new DefaultPasswordEngine();
 
-  static async createWithEmail(email: string, password: string) {
+  async createWithEmail(email: string, password: string) {
     const user = await User.create({
       idp: IdpType.Email,
       email,
-      password: UserController.passwordEngine.getHashedPassword(password),
+      password: BaseUserController.passwordEngine.getHashedPassword(password),
     });
-    return new UserController(user);
+    return new BaseUserController(user);
   }
-  static async createWith3rdPartyIdp(
-    idp: IdpType,
-    idpUserId: string,
-    email: string
-  ) {
+  async createWith3rdPartyIdp(idp: IdpType, idpUserId: string, email: string) {
     const user = await User.create({
       idp,
       idpUserId,
       email,
     });
-    return new UserController(user);
+    return new BaseUserController(user);
   }
 
   async verifyPassword(password: string) {
-    return await UserController.passwordEngine.verifyPassword(
+    return await BaseUserController.passwordEngine.verifyPassword(
       password,
       this.doc.password
     );
@@ -62,4 +58,4 @@ class UserController extends BaseController<IUser> {
     };
   }
 }
-export default UserController;
+export default BaseUserController;
