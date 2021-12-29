@@ -8,6 +8,7 @@ import BaseUserController from '../controller/BaseUserController';
 export class Request<TParams> {
   body: TParams;
   user: BaseUserController;
+  params: Record<string, any>;
 
   /* raw express request */
   raw: ExpressRequest;

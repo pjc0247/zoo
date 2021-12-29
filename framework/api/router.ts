@@ -80,6 +80,7 @@ class Router {
     return {
       body: expressRequest.body as TParam,
       raw: expressRequest,
+      params: expressRequest.params,
       user: expressRequest.user as BaseUserController,
     };
   }
