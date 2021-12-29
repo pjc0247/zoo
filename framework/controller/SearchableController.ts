@@ -16,7 +16,7 @@ export class SearchableController<
       );
   }
 
-  async create(object: Partial<TDoc>) {
+  async create(object: Partial<TDoc>): Promise<this> {
     const obj = await super.create(object);
 
     InlineTask.runRetriableTask(async () => {

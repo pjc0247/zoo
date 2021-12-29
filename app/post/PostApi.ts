@@ -23,9 +23,7 @@ export class Post {
 
   @post('/')
   async create(req: Request<any>) {
-    console.log(this.post);
     const post = await this.post.create(req.body);
-    console.log('re', post);
-    return post;
+    return post.toExportable();
   }
 }
