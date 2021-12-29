@@ -15,12 +15,8 @@ export class Push {
     option: PushOption = {}
   ) {
     await this._send(
-      {
-        en: title,
-      },
-      {
-        en: body,
-      },
+      this._normalizeString(title),
+      this._normalizeString(body),
       { include_player_ids: [id] },
       option
     );
@@ -33,12 +29,8 @@ export class Push {
   ) {
     for (let i = 0; i < ids.length; i++) {
       await this._send(
-        {
-          en: title,
-        },
-        {
-          en: body,
-        },
+        this._normalizeString(title),
+        this._normalizeString(body),
         { include_player_ids: ids.slice(i, i + 2000) },
         option
       );
@@ -51,17 +43,19 @@ export class Push {
     option: PushOption = {}
   ) {
     await this._send(
-      {
-        en: title,
-      },
-      {
-        en: body,
-      },
+      this._normalizeString(title),
+      this._normalizeString(body),
       { filters: [{ field: 'tag', key: topic, relation: 'exists' }] },
       option
     );
   }
 
+  private static _normalizeString(string: ContentString) {
+    if (typeof string === 'string') {
+      return { en: string };
+    }
+    return string;
+  }
   private static async _send(
     title: object,
     body: object,
