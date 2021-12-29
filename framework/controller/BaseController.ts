@@ -48,10 +48,13 @@ export class BaseController<TDoc extends Document> {
     return this.fromDocs(docs);
   }
 
-  async batchDestroy(ids: string[]) {}
   async destroy() {
     return await this.doc.deleteOne();
   }
+  async destroyMany(ids: string[]) {
+    return await this.model.where('_id').in(ids).remove();
+  }
+
   async update(props: Partial<TDoc>) {
     return await this.doc.updateOne({
       ...props,

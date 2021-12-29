@@ -1,6 +1,7 @@
 import { Client } from 'onesignal-node';
 
 import env from '../env';
+import { ContentString } from '../i18n';
 import { reinterpretSendAfter } from './optionParser';
 import { PushOption } from './PushOption';
 
@@ -8,8 +9,8 @@ const client = new Client('', '');
 
 export class Push {
   static async send(
-    title: string,
-    body: string,
+    title: ContentString,
+    body: ContentString,
     id: string,
     option: PushOption = {}
   ) {
@@ -25,8 +26,8 @@ export class Push {
     );
   }
   static async sendMany(
-    title: string,
-    body: string,
+    title: ContentString,
+    body: ContentString,
     ids: string[],
     option: PushOption = {}
   ) {
@@ -44,8 +45,8 @@ export class Push {
     }
   }
   static async sendToTopic(
-    title: string,
-    body: string,
+    title: ContentString,
+    body: ContentString,
     topic: string,
     option: PushOption = {}
   ) {
