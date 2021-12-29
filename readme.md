@@ -11,7 +11,7 @@ Batteries-included mobile app server framework.
 Features
 ----
 * Async support
-* Push Notification
+* Push Notification with production-ready APIs.
 * Built-in Social Logins
 * Production-Ready text searching, powered by [algolia](https://www.algolia.com/).
 
