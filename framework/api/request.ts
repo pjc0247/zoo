@@ -3,18 +3,14 @@ import {
   Response as ExpressResponse,
 } from 'express';
 
-import UserController from '../controller/user';
+import BaseUserController from '../controller/BaseUserController';
 
 export class Request<TParams> {
   body: TParams;
-  user: UserController;
+  user: BaseUserController;
 
   /* raw express request */
   raw: ExpressRequest;
-};
-export class EmptyRequest extends Request<{}> {
-
-};
-export interface Response extends ExpressResponse {
-
-};
+}
+export class EmptyRequest extends Request<{}> {}
+export interface Response extends ExpressResponse {}

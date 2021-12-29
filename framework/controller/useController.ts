@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-import { BaseController } from './base_controller';
+import { BaseController } from './BaseController';
 
 export const useController = <
   T extends BaseController<TDoc>,

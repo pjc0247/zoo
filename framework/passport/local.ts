@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 
-import UserController from '../controller/UserController';
+import BaseUserController from '../controller/BaseUserController';
 
 passport.use(
   new LocalStrategy(
@@ -10,7 +10,7 @@ passport.use(
       password: string,
       done: (err: any, user: any) => void
     ) => {
-      const user = await UserController.find(email);
+      const user = await BaseUserController.find(email);
       if (user) {
         if (user.verifyPassword(password)) done(null, user);
         else done('Invalid password', null);
