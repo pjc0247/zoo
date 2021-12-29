@@ -60,6 +60,6 @@ export class SearchableController<
       length: limit,
     });
 
-    return await Promise.all(hits.map((x) => this.get(x.objectID)));
+    return await this.getMany(hits.map((x) => x.objectID));
   }
 }

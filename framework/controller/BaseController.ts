@@ -9,7 +9,7 @@ export class BaseController<TDoc extends Document> {
     this.doc = doc as TDoc;
   }
 
-  get model() {
+  get model(): Model<TDoc> {
     return (<any>this).constructor.model;
   }
   get id() {
@@ -26,13 +26,17 @@ export class BaseController<TDoc extends Document> {
   }
 
   async create(object: Partial<TDoc>) {
-    return this.fromDoc(await this.model.create(object));
+    return this.fromDoc(await this.model.create(object as any));
   }
 
-  async get(id: string) {
+  async get(id: string): Promise<this> {
     const doc = await this.model.findById(id);
     if (!doc) return null;
     return this.fromDoc(doc);
+  }
+  async getMany(ids: string[]): Promise<this[]> {
+    const docs = await this.model.where('_id').in(ids).find();
+    return this.fromDocs(docs);
   }
   async find(condition: any) {
     const doc = await this.model.findOne(condition);

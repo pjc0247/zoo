@@ -7,7 +7,7 @@ export enum IdpType {
   Facebook = 'facebook',
   Kakao = 'kakao',
   Google = 'google',
-};
+}
 export interface IUser extends Document {
   name: string;
 
@@ -17,7 +17,7 @@ export interface IUser extends Document {
   password: string;
 
   pushToken: string;
-};
+}
 
 export const userSchema = ZooSchema({
   name: String,
@@ -36,7 +36,7 @@ export const userSchema = ZooSchema({
   email: {
     type: String,
     index: { sparse: true, unique: true },
-    required: false, /* email 안주는 로그인도 있음 */
+    required: false /* email 안주는 로그인도 있음 */,
   },
   password: String,
 
