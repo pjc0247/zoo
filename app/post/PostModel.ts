@@ -16,5 +16,3 @@ export const postSchema = new Schema({
 });
 postSchema.plugin(mongoosePaginate);
 export const Post = model('Post', postSchema);
-
-postSchema.post('save', (doc) => {});
