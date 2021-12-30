@@ -7,8 +7,11 @@ import { BaseController } from './BaseController';
 export class SearchableController<
   TDoc extends Document
 > extends BaseController<TDoc> {
-  constructor(doc: Document, private index?: SearchIndex) {
-    super(doc);
+  protected index: SearchIndex;
+
+  set(doc: Document, index?: SearchIndex) {
+    super.set(doc);
+    this.index = index;
 
     if (!index)
       throw new Error(

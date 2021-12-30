@@ -12,21 +12,18 @@ export class Post {
 
   @get('/')
   async getPosts() {
-    throw new Error('a');
-    return {
-      a: 'hello',
-    };
+    return this.post.findMany({}, 20);
   }
   @get('/:id')
   async getPost(req: Request<any>) {
     const post = await this.post.get(req.params.id);
-    return post.toExportable();
+    return post;
   }
 
   @post('/')
   async create(req: Request<any>) {
     const post = await this.post.create(req.body);
-    return post.toExportable();
+    return post;
   }
 
   @get('/:id/comment')
@@ -39,6 +36,6 @@ export class Post {
   async createComment(req: Request<any>) {
     const post = await this.post.get(req.params.id);
     const comment = await post.createComment(req.body);
-    return comment.toExportable();
+    return comment;
   }
 }

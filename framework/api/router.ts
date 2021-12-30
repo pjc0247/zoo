@@ -5,10 +5,10 @@ import {
   Response as ExpressResponse,
 } from 'express';
 import passport from 'passport';
-import env from '../env';
 import { v4 as uuidv4 } from 'uuid';
 import 'reflect-metadata';
 
+import env from '../env';
 import BaseUserController from '../controller/BaseUserController';
 import { DevelopmentStage } from '../env/stage';
 import { logRequest, logResponse } from '../log';

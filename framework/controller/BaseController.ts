@@ -5,7 +5,7 @@ export class BaseController<TDoc extends Document> {
 
   static model: any;
 
-  constructor(doc: Document) {
+  set(doc: Document) {
     this.doc = doc as TDoc;
   }
 
@@ -61,6 +61,12 @@ export class BaseController<TDoc extends Document> {
     });
   }
 
+  /* Hooks */
+  async onBeforeSave() {}
+  async onAfterSave() {}
+  async onRemove() {}
+
+  /* Export */
   async toExportable() {
     return {
       id: this.id,

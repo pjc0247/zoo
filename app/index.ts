@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import { applyRouters } from '@/framework/api/express';
 
 import './post/PostApi';
+import './post/NotificationApi';
+import { useController } from '@/framework/controller';
+import { PostController } from './post';
 
 // for test
 const express = require('express');
@@ -23,3 +26,9 @@ applyRouters(app);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+const post = useController(PostController);
+const gg = async () => {
+  console.log((await post.search('안')).map((x) => x.toExportable()));
+};
+gg().catch(console.error);
