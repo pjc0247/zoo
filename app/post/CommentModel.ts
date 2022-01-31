@@ -1,9 +1,10 @@
 import { Schema, Document, model } from 'mongoose';
 
+import { ZooModel } from '@/framework/model';
 import { IUser } from '@/framework/model/user';
 import { IPost } from './PostModel';
 
-export interface IComment extends Document {
+export interface IComment extends ZooModel {
   title: string;
   body: string;
 

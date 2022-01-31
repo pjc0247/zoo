@@ -426,6 +426,13 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
 
+"@types/mongoose-delete@^0.5.8":
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/@types/mongoose-delete/-/mongoose-delete-0.5.8.tgz#5dffe1af7699fece75a9b08bf0c22f0738fc1ec0"
+  integrity sha512-iu9Om8tn/9rKkBbyIGWDsIux4hM2ErCa5ZUzfpvuePvKNbDR1qAQukaIZrguM2W5PPAGgSc8e5M0ILsf9kxvSw==
+  dependencies:
+    mongoose "^5.11 || ^6"
+
 "@types/mongoose-paginate-v2@^1.3.8":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@types/mongoose-paginate-v2/-/mongoose-paginate-v2-1.4.3.tgz#37ce0de55d008cb79219ec6b280392846ceb33c1"
@@ -1893,10 +1900,30 @@ mongodb@4.2.2:
   optionalDependencies:
     saslprep "^1.0.3"
 
+mongoose-delete@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/mongoose-delete/-/mongoose-delete-0.5.4.tgz#588374bf144cbffa209a549f247e5482054715f2"
+  integrity sha512-zKkcWFEwTneVG4Oiy+qJRJPFCiGlqOJToHeU3a3meJybWsHCnWxdHkGEkFWNY5cmYEv5av3WwByOhPlQ6I+FmQ==
+
 mongoose-paginate-v2@^1.3.9:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/mongoose-paginate-v2/-/mongoose-paginate-v2-1.5.0.tgz#c2caa7a09a1725053c72cf7331791dcbca6e65a5"
   integrity sha512-+r/M/gYfR98s1ooXoSH3aD3bMopjXKR6UpzQZSDWI22uNtoIpxia4/b80X99ho3g8AMzl0uLuQFuPL06mXHyyg==
+
+"mongoose@^5.11 || ^6":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.1.9.tgz#1ac889dbee9651f274d83578c0189fcb3c356355"
+  integrity sha512-dh6ZeYNGUAW4Gc4MxxgPwU+0d1tZZgse6xTejDjFwyXJArBcyI4xLqNrO9W6Umu2iQzlT701RTtN+iJ0gipM4A==
+  dependencies:
+    "@types/node" "< 17.0.6"
+    bson "^4.2.2"
+    kareem "2.3.3"
+    mongodb "4.2.2"
+    mpath "0.8.4"
+    mquery "4.0.2"
+    ms "2.1.2"
+    regexp-clone "1.0.0"
+    sift "13.5.2"
 
 mongoose@^6.0.13, mongoose@^6.1.8:
   version "6.1.8"
