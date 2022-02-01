@@ -1,7 +1,7 @@
 import { api, get, post, Request } from '@/framework/api';
-import { CommentController } from '.';
 
 import { PostController } from './PostController';
+import { CommentController } from './CommentController';
 
 @api('/post')
 export class Post {

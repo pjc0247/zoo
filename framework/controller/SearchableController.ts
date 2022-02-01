@@ -1,11 +1,12 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import { Document } from 'mongoose';
 
+import { ZooModel } from '../model';
 import { InlineTask } from '../task';
 import { BaseController } from './BaseController';
 
 export class SearchableController<
-  TDoc extends Document
+  TDoc extends ZooModel
 > extends BaseController<TDoc> {
   protected index: SearchIndex;
 
