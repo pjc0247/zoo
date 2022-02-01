@@ -19,4 +19,14 @@ export class ValueController extends BaseController<IAppValue> {
 
     return this.create(snapshot);
   }
+
+  async toExportable() {
+    return {
+      id: this.id,
+      snapshot: JSON.parse(this.doc.raw),
+      platform: this.doc.platform,
+      createdAt: this.doc.createdAt,
+      updatedAt: this.doc.updatedAt,
+    };
+  }
 }
