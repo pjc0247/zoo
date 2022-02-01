@@ -1,6 +1,8 @@
 import { Document, Model } from 'mongoose';
 
-export class BaseController<TDoc extends Document> {
+import { ZooModel } from '../model';
+
+export class BaseController<TDoc extends ZooModel> {
   protected doc: TDoc;
 
   static model: any;
@@ -17,7 +19,7 @@ export class BaseController<TDoc extends Document> {
   }
 
   // Create a controller instance from given mongoose doc.
-  protected fromDoc(doc: any) {
+  protected fromDoc(doc: any): this {
     return new (<any>this.constructor)(doc);
   }
   // Create multiple controllers instance from given mongoose docs.
@@ -27,6 +29,10 @@ export class BaseController<TDoc extends Document> {
 
   async create(object: Partial<TDoc>) {
     return this.fromDoc(await this.model.create(object as any));
+  }
+
+  query() {
+    return this.model;
   }
 
   async get(id: string): Promise<this> {

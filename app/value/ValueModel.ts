@@ -1,9 +1,16 @@
-import { Schema, Document, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-export interface IAppValue extends Document {
-  latestVersion: string;
+import { ZooModel } from '@/framework/model';
+
+export interface IAppValue extends ZooModel {
+  raw: string;
+  platform: string;
 }
 export const appValueSchema = new Schema({
-  latestVersion: String,
+  raw: {
+    type: String,
+    default: '{}',
+  },
+  platform: String,
 });
 export const Post = model('AppValue', appValueSchema);
