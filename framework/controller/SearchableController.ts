@@ -10,16 +10,6 @@ export class SearchableController<
 > extends BaseController<TDoc> {
   protected index: SearchIndex;
 
-  set(doc: Document, index?: SearchIndex) {
-    super.set(doc);
-    this.index = index;
-
-    if (!index)
-      throw new Error(
-        `Index not found. Did you add '@searchable()' to 'SearchableController'?`
-      );
-  }
-
   async create(object: Partial<TDoc>): Promise<this> {
     const obj = await super.create(object);
 

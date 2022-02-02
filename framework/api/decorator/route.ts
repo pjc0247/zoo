@@ -1,11 +1,15 @@
+import { model as compileModel } from 'mongoose';
+
 import { BaseController } from '@/framework/controller';
 import { getOrCreateRouter } from '../express';
+import { DatabaseHookKind, IDatabaseHook } from '../hook';
 import { IMiddleware } from '../middleware';
 import { IResource } from '../resource';
 import { appendMetadata } from './metadata';
 
 const resources: Record<any, IResource> = {};
 const middlewares: Record<any, IMiddleware> = {};
+const databaseHooks: Record<string, IDatabaseHook[]> = {};
 
 const getResource = (cls: any) => {
   return resources[cls.constructor.name];
@@ -16,27 +20,54 @@ export const getResources = (): IResource[] => {
 export const getMiddlewares = (): IMiddleware[] => {
   return Object.values(middlewares);
 };
+export const getDatabasehooks = (controller: string): IDatabaseHook[] => {
+  return databaseHooks[controller] || [];
+};
 
-export const controller = () => {
-  return (ctor: any) => {
+export const controller = <T>(controllerName: string) => {
+  return (ctor: new (...args: any[]) => T) => {
     const injections =
       Reflect.getMetadata('design:paramtypes', ctor)?.map(
         (x) => new (<any>x)()
       ) || [];
     const instance: BaseController<any> = new (<any>ctor)(...injections);
     // @ts-ignore
-    instance.name = ctor.name;
+    instance.name = controllerName;
 
-    const model = ctor.model;
-    ['preSave', 'postSave'].forEach((hook) => {
-      const hooks = Reflect.getMetadata(hook, instance) as {
+    ['preSave', 'postSave'].forEach((hookKind) => {
+      const hooks = Reflect.getMetadata(hookKind, instance) as {
         method: string;
       }[];
 
       hooks?.forEach(({ method: hookMethod }) => {
-        console.log(hookMethod, instance[hookMethod]);
+        const hook: IDatabaseHook = {
+          kind: hookKind as DatabaseHookKind,
+          method: (doc) => {
+            instance[hookMethod](doc);
+          },
+        };
+
+        if (databaseHooks[controllerName]) {
+          databaseHooks[controllerName].push(hook);
+        } else {
+          databaseHooks[controllerName] = [hook];
+        }
       });
     });
+
+    // @ts-ignore
+    const schema = ctor.schema;
+    const _hooks = getDatabasehooks(controllerName);
+    _hooks.forEach((hook) => {
+      if (hook.kind === 'postSave') {
+        schema.post('save', hook.method);
+      }
+    });
+
+    const model = compileModel(controllerName, schema);
+
+    // @ts-ignore
+    ctor.model = model;
   };
 };
 

@@ -5,6 +5,7 @@ import { ZooModel } from '../model';
 export class BaseController<TDoc extends ZooModel> {
   protected doc: TDoc;
 
+  static schema: any;
   static model: any;
 
   set(doc: Document) {
@@ -20,7 +21,9 @@ export class BaseController<TDoc extends ZooModel> {
 
   // Create a controller instance from given mongoose doc.
   protected fromDoc(doc: any): this {
-    return new (<any>this.constructor)(doc);
+    const instance = new (<any>this.constructor)();
+    instance.set(doc);
+    return instance;
   }
   // Create multiple controllers instance from given mongoose docs.
   protected fromDocs(docs: any[]) {
@@ -28,7 +31,10 @@ export class BaseController<TDoc extends ZooModel> {
   }
 
   async create(object: Partial<TDoc>) {
-    return this.fromDoc(await this.model.create(object as any));
+    console.log('obj', object);
+    const createdDocument = await this.model.create(object as any);
+    console.log(createdDocument);
+    return this.fromDoc(createdDocument);
   }
 
   query() {

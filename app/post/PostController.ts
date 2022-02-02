@@ -1,12 +1,14 @@
+import { controller } from '@/framework/api/decorator';
 import { SearchableController, useController } from '@/framework/controller';
 import { searchable } from '@/framework/search/decorator';
 import { CommentController } from './CommentController';
 import { IComment } from './CommentModel';
-import { IPost, Post } from './PostModel';
+import { IPost, Post, postSchema } from './PostModel';
 
+@controller('post')
 @searchable('post')
 export class PostController extends SearchableController<IPost> {
-  static model = Post;
+  static schema = postSchema;
 
   constructor(private comment: CommentController) {
     super();

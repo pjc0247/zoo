@@ -1,13 +1,25 @@
 import { Schema, SchemaDefinition, SchemaOptions, Document } from 'mongoose';
 
-export const ZooSchema = (definition: SchemaDefinition, options: SchemaOptions = {}) => {
-  return new Schema({
-    ...definition,
-  }, {
-    timestamps: {
-      createdAt: 'createdAt',
-      updatedAt: 'updatedAt',
+import { BaseController } from '../controller';
+import { ZooModel } from './ZooModel';
+import { getDatabasehooks } from '../api';
+
+export const ZooSchema = (
+  definition: SchemaDefinition,
+  options: SchemaOptions = {}
+) => {
+  const schema = new Schema(
+    {
+      ...definition,
     },
-    ...options,
-  })
+    {
+      timestamps: {
+        createdAt: 'createdAt',
+        updatedAt: 'updatedAt',
+      },
+      ...options,
+    }
+  );
+
+  return schema;
 };

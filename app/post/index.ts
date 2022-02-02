@@ -1,4 +1,4 @@
-export * from './PostController';
 export * from './PostModel';
-export * from './CommentController';
+export * from './PostController';
 export * from './CommentModel';
+export * from './CommentController';

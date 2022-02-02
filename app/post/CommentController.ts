@@ -3,15 +3,17 @@ import { searchable } from '@/framework/search/decorator';
 import { controller, postSave } from '@/framework/api/decorator';
 
 import { IPost, Post } from './PostModel';
-import { IComment, Comment } from './CommentModel';
+import { IComment, commentSchema } from './CommentModel';
 
-@controller()
+@controller('comment')
 @searchable('comment')
 export class CommentController extends SearchableController<IComment> {
-  static model = Comment;
+  static schema = commentSchema;
 
   @postSave()
-  postSave() {}
+  postSave() {
+    console.log('Post Save');
+  }
 
   async toExportable() {
     return {
