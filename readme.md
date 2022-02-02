@@ -7,6 +7,10 @@ Batteries-included mobile app server framework.
 * 푸시 발송에 대한 자동 알림 목록 생성 (알림 히스토리)
 * 파이어베이스 유저 연동
 * 공지사항
+* 게시판
+  * 댓글
+  * 알림
+* hook
 
 Features
 ----
