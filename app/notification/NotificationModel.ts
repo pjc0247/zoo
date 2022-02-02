@@ -1,8 +1,9 @@
-import { Schema, Document, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
+import { ZooModel } from '@/framework/model';
 import { UserController } from '../user';
 
-export interface INotification extends Document {
+export interface INotification extends ZooModel {
   title: string;
   body: string;
 

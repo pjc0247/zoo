@@ -1,6 +1,8 @@
-import { getOrCreateRouter } from './express';
-import { IMiddleware } from './middleware';
-import { IResource } from './resource';
+import { BaseController } from '@/framework/controller';
+import { getOrCreateRouter } from '../express';
+import { IMiddleware } from '../middleware';
+import { IResource } from '../resource';
+import { appendMetadata } from './metadata';
 
 const resources: Record<any, IResource> = {};
 const middlewares: Record<any, IMiddleware> = {};
@@ -15,11 +17,35 @@ export const getMiddlewares = (): IMiddleware[] => {
   return Object.values(middlewares);
 };
 
+export const controller = () => {
+  return (ctor: any) => {
+    const injections =
+      Reflect.getMetadata('design:paramtypes', ctor)?.map(
+        (x) => new (<any>x)()
+      ) || [];
+    const instance: BaseController<any> = new (<any>ctor)(...injections);
+    // @ts-ignore
+    instance.name = ctor.name;
+
+    const model = ctor.model;
+    ['preSave', 'postSave'].forEach((hook) => {
+      const hooks = Reflect.getMetadata(hook, instance) as {
+        method: string;
+      }[];
+
+      hooks?.forEach(({ method: hookMethod }) => {
+        console.log(hookMethod, instance[hookMethod]);
+      });
+    });
+  };
+};
+
 export const api = (path: string) => {
   return (ctor: any) => {
-    const injections = Reflect.getMetadata('design:paramtypes', ctor).map(
-      (x) => new (<any>x)()
-    );
+    const injections =
+      Reflect.getMetadata('design:paramtypes', ctor)?.map(
+        (x) => new (<any>x)()
+      ) || [];
     const instance = new (<any>ctor)(...injections);
     resources[ctor.name] = {
       name: ctor.name,
@@ -49,10 +75,6 @@ export const middleware = () => {
   };
 };
 
-const appendMetadata = (key: string, target: any, value: any) => {
-  const perv = Reflect.getMetadata(key, target) || [];
-  Reflect.defineMetadata(key, [...perv, value], target);
-};
 export const get = (path: string) => {
   return (cls: any, method: any, desc: PropertyDescriptor) => {
     appendMetadata('get', cls, { method, path });
