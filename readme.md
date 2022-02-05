@@ -8,6 +8,8 @@ Batteries-included mobile app server framework.
 * express는 원하는걸 하기에 너무 bare 한 상태이고, nestjs는 너무 나가서 무거운 상태라 적당한 인터페이스를 만듭니다.
 * (프레임워크로써의) 인터페이스 제공은 부수적인 기능이고, 주 목적은 `Batteries-included`
 * 일반적인 로그인과 게시판 푸시 발송은 그냥 클론해서 켜면 되는 정도가 목표
+  * 게시판 기능이 안필요한 앱이 없음
+  * FAQ, 공지사항도 사실 게시판
 
 할일
 -----
