@@ -1,6 +1,6 @@
-import { SearchableController } from '@/framework/controller';
-import { searchable } from '@/framework/search/decorator';
-import { controller, postSave } from '@/framework/api/decorator';
+import { SearchableController } from '@/controller';
+import { searchable } from '@/search/decorator';
+import { controller, postSave } from '@/api/decorator';
 
 import { IPost, Post } from './PostModel';
 import { IComment, commentSchema } from './CommentModel';

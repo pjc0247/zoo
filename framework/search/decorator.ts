@@ -1,6 +1,5 @@
 import { SearchIndex } from 'algoliasearch';
 
-import { SearchableController } from '../controller/index';
 import { algolia } from './index';
 
 export const searchableField = () => {

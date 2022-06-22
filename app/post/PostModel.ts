@@ -1,9 +1,9 @@
-import { Schema, Document, model } from 'mongoose';
-import mongoosePaginate from 'mongoose-paginate-v2';
+import { Document, Schema, model } from 'mongoose';
 import MongooseDelete from 'mongoose-delete';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
-import { IUser } from '@/framework/model/user';
-import { ZooModel } from '@/framework/model';
+import { ZooModel } from '@/model';
+import { IUser } from '@/model/user';
 
 export interface IPost extends ZooModel {
   title: string;

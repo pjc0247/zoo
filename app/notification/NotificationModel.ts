@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-import { ZooModel } from '@/framework/model';
+import { ZooModel } from '@/model';
 import { UserController } from '../user';
 
 export interface INotification extends ZooModel {

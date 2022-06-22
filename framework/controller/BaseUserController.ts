@@ -1,10 +1,10 @@
 import { Document } from 'mongoose';
-import env from '../env';
 
-import { User, userSchema, IdpType, IUser } from '../model/user';
-import { Push } from '../push/Push';
-import { DevelopmentStage } from '../env/stage';
-import { DefaultPasswordEngine } from '../policy/password';
+import env from '@/env';
+import { DevelopmentStage } from '@/env/stage';
+import { IUser, IdpType, User, userSchema } from '@/model/user';
+import { DefaultPasswordEngine } from '@/policy/password';
+import { Push } from '@/push/Push';
 import { BaseController } from './BaseController';
 
 class BaseUserController extends BaseController<IUser> {

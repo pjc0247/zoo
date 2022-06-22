@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
 
-import { ZooModel } from '@/framework/model';
-import { IUser } from '@/framework/model/user';
+import { ZooModel } from '@/model';
+import { ZooSchema } from '@/model/base';
+import { IUser } from '@/model/user';
 import { IPost } from './PostModel';
-import { ZooSchema } from '@/framework/model/base';
 
 export interface IComment extends ZooModel {
   title: string;

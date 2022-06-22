@@ -1,6 +1,6 @@
 import { model as compileModel } from 'mongoose';
 
-import { BaseController } from '@/framework/controller';
+import { BaseController } from '@/controller';
 import { getOrCreateRouter } from '../express';
 import { DatabaseHookKind, IDatabaseHook } from '../hook';
 import { IMiddleware } from '../middleware';

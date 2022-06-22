@@ -1,3 +1,3 @@
-import BaseUserController from '@/framework/controller/BaseUserController';
+import BaseUserController from '@/controller/BaseUserController';
 
 export class UserController extends BaseUserController {}

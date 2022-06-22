@@ -1,6 +1,5 @@
-import { BaseController } from '@/framework/controller';
-import { IUser } from '@/framework/model/user';
-
+import { BaseController } from '@/controller';
+import { IUser } from '@/model/user';
 import { INotification, Notification } from './NotificationModel';
 
 export class NotificationController extends BaseController<INotification> {

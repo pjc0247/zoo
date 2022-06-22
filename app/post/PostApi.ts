@@ -1,4 +1,4 @@
-import { api, get, post, Request } from '@/framework/api';
+import { api, get, post, Request } from '@/api';
 
 import { PostController } from './PostController';
 import { CommentController } from './CommentController';

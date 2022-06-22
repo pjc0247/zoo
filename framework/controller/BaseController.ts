@@ -1,6 +1,6 @@
 import { Document, Model } from 'mongoose';
 
-import { ZooModel } from '../model';
+import { ZooModel } from '@/model';
 
 export class BaseController<TDoc extends ZooModel> {
   protected doc: TDoc;
@@ -31,9 +31,7 @@ export class BaseController<TDoc extends ZooModel> {
   }
 
   async create(object: Partial<TDoc>) {
-    console.log('obj', object);
     const createdDocument = await this.model.create(object as any);
-    console.log(createdDocument);
     return this.fromDoc(createdDocument);
   }
 

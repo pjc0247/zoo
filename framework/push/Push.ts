@@ -1,9 +1,8 @@
 import { Client } from 'onesignal-node';
 
-import env from '../env';
-import { ContentString } from '../i18n';
-import { reinterpretSendAfter } from './optionParser';
+import { ContentString } from '@/i18n';
 import { PushOption } from './PushOption';
+import { reinterpretSendAfter } from './optionParser';
 
 const client = new Client('', '');
 
